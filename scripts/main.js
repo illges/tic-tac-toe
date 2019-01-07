@@ -1,34 +1,67 @@
 const gameBoard = (() => {
-	let table = ["", "", "", "", "", "", "", "", ""];
-	const add = (e) => console.log(e.target);
-	return {table, add};
+	const add = (e) => {
+		console.log(e.target.textContent)
+	};
+	return { add };
 
 })();
 
 const game = (() => {
-	const move = () => {Array.from(document.querySelectorAll('.tile')).forEach(move => move.addEventListener('click', e => gameBoard.add(e)))};
-	return {move}
+	let currentPlayer = "X";
+
+	const changePlayer = () => currentPlayer = currentPlayer === "X" ? "O" : "X";
+
+	const move = () => {
+		Array.from(document.querySelectorAll('.tile')).forEach(i => { 
+			i.addEventListener('click', (e) => {
+				if (!i.textContent) {
+					i.textContent = currentPlayer
+					changePlayer()
+					gameBoard.add(e)
+				}
+			})
+		})
+	};
+
+	const reset = () => document.querySelector('.reset').addEventListener('click', () => {
+		Array.from(document.querySelectorAll('.tile')).forEach(i => {
+			i.textContent = ''
+		})
+	})
+	return { move }
 })();
 
 const player = (name, team) => {
 	return { name, team }
 }
 
-function render() {
-	const turn = Array.from(document.querySelectorAll(".tile"))
-	turn.forEach(i=>{
-		i.innerHTML = gameBoard.table[turn.indexOf(i)]
-	})
-}
+const displayController = (() => {
 
-render()
+	const game = document.getElementById('game')
 
-const bilbo = player("bilbo", "X")
-const frodo = player("frodo", "O")
+	const render = () => {
+		let board = document.createElement('div');
+		board.setAttribute('id', 'board');
 
+		for (i = 0; i <= 8; i++) {
+			let tile = document.createElement('div');
+			tile.classList.add('tile');
+			tile.dataset.tile = i;
 
-//Temp Code to see click events
-// const turn = Array.from(document.querySelectorAll('.tile'));
-//   turn.forEach(turn => turn.addEventListener('click', e => bilbo.takeTurn(e)));
+			board.appendChild(tile);
+		}
 
+		restartButton = document.createElement('button');
+		restartButton.setAttribute('id', 'restart');
+		restartButton.textContent = 'Restart';
+		restartButton.addEventListener('click', (e) => console.log(e))
 
+		game.appendChild(board);
+		game.appendChild(restartButton);
+	};
+
+	return { render };
+})();
+
+displayController.render();
+game.move();

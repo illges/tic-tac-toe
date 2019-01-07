@@ -1,4 +1,9 @@
 
+:root {
+	--blue: rgb(131, 206, 231);
+	--black: #272727;
+}
+
 /*CSS comment*/
 * { /*Universal Selector*/
 	box-sizing: border-box; /*keeps all border and padding dimensions inside specified box dimensions*/
@@ -13,16 +18,27 @@ html {
 
 h1 {
 	font-size: 35px;
+	margin: 10px;
 }
 
-.container {
+#board {
+	margin: 50px;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	grid-gap: 5px;
 	grid-auto-rows: minmax(100px, auto);
+	background-color: var(--black);
 }
 
 .tile {
-	background-color: lightblue;
+	display: grid;
+	justify-content: center;
+	align-items: center;
+	font-size: 30px;
+	font-weight: bold;
+	background-color: var(--blue);	
 }
+
+
+
 
