@@ -1,0 +1,28 @@
+
+/*CSS comment*/
+* { /*Universal Selector*/
+	box-sizing: border-box; /*keeps all border and padding dimensions inside specified box dimensions*/
+	/*default setting is 'content-box' */
+}
+
+html {
+	 /* px means 'pixels': the base font size is now 10 pixels high  */
+	font-family: 'Open Sans', sans-serif; /* this should be the rest of the output you got from Google fonts */
+	background-color: #FFFFFF;
+}
+
+h1 {
+	font-size: 35px;
+}
+
+.container {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-gap: 5px;
+	grid-auto-rows: minmax(100px, auto);
+}
+
+.tile {
+	background-color: lightblue;
+}
+
