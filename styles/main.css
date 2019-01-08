@@ -21,6 +21,14 @@ h1 {
 	margin: 10px;
 }
 
+#restart {
+	margin: 0 0 0 20px;
+}
+
+#game {
+	
+}
+
 #board {
 	margin: 50px;
 	display: grid;
@@ -28,6 +36,7 @@ h1 {
 	grid-gap: 5px;
 	grid-auto-rows: minmax(100px, auto);
 	background-color: var(--black);
+	width: 500px;
 }
 
 .tile {

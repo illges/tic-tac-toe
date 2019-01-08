@@ -33,7 +33,7 @@ const game = (() => {
 					gameBoard.add(currentPlayer, i.dataset.tile);
 					checkGameOver()
 					changePlayer()
-				}
+				} 
 			})
 		})
 	};
@@ -48,12 +48,17 @@ const game = (() => {
 		})
 	}
 
-	return { move, gameOver, currentPlayer }
+	const reset = () => {
+		gameOver = false;
+		currentPlayer = 'X';
+	}
+
+	return { move, gameOver, currentPlayer, reset }
 })();
 
 const displayController = (() => {
 
-	const game = document.getElementById('game')
+	const Tac = document.getElementById('game')
 
 	const render = () => {
 		let board = document.createElement('div');
@@ -72,17 +77,15 @@ const displayController = (() => {
 		restartButton.textContent = 'Restart';
 		restartButton.addEventListener('click', (e) => {
 			Array.from(document.querySelectorAll('.tile')).forEach(i => {
-				i.textContent = ''
+				i.textContent = undefined;
 			});
-			game.gameOver = false;
-			game.currentPlayer = 'X';
+			game.reset();
 			gameBoard.initialize();
 			console.log(e.target);
-			game.move();
 		});
 
-		game.appendChild(board);
-		game.appendChild(restartButton);
+		Tac.appendChild(board);
+		Tac.appendChild(restartButton);
 	};
 
 	return { render };
