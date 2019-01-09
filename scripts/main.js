@@ -2,7 +2,6 @@ const gameBoard = (() => {
 	let tiles = [];
 	const add = (tile, index) => {
 		tiles[index] = tile;
-		console.log(tiles);
 	};
 
 	const checkTiles = () => tiles;
@@ -15,7 +14,7 @@ const gameBoard = (() => {
 const game = (() => {
 	let currentPlayer = 'X',
 		gameOver = false,
-		highLight;
+		winningMove;
 
 	let winningConditions = [
 		[0,1,2], [0,3,6], [0,4,8],
@@ -43,12 +42,17 @@ const game = (() => {
 		winningConditions.some(i => {
 			if(tiles[i[0]] === tiles[i[1]] && tiles[i[1]] === tiles[i[2]] && tiles[i[1]]) {
 				gameOver = true;
-				console.log('GAME OVER NOOB!')
+				winningMove = i;
+				displayController.celebrate(currentPlayer, winningMove);
 			}
 		})
 	}
 
 	const reset = () => {
+		Array.from(document.querySelectorAll('.tile')).forEach(i => {
+			i.textContent = undefined;
+			i.style.backgroundColor = '#83cee7';
+		});
 		gameOver = false;
 		currentPlayer = 'X';
 	}
@@ -76,19 +80,25 @@ const displayController = (() => {
 		restartButton.setAttribute('id', 'restart');
 		restartButton.textContent = 'Restart';
 		restartButton.addEventListener('click', (e) => {
-			Array.from(document.querySelectorAll('.tile')).forEach(i => {
-				i.textContent = undefined;
-			});
 			game.reset();
 			gameBoard.initialize();
-			console.log(e.target);
 		});
 
 		Tac.appendChild(board);
 		Tac.appendChild(restartButton);
 	};
 
-	return { render };
+	const celebrate = (player, condition) => {
+		let highLight = [];
+
+		condition.forEach(i => {
+			highLight.push(document.querySelector(`div[data-tile="${i}"]`))
+		})
+
+		highLight.forEach(tile => tile.style.backgroundColor = '#b61686')
+	}
+
+	return { render, celebrate };
 })();
 
 displayController.render();
